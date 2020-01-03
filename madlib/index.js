@@ -29,27 +29,27 @@
 
 
 
-const http = require('http');
+// const http = require('http');
 
-const server = http.createServer((req, res) => {
-    res.writeHead(200, {
-        'Content-Type': 'text-plain'
-    });
+// const server = http.createServer((req, res) => {
+//     res.writeHead(200, {
+//         'Content-Type': 'text-plain'
+//     });
 
-    const names = ["Oakley", "Chris"];
-    let reqUrl = req.url.slice(1);
-    let content = `Hello, ${reqUrl}`;
+//     const names = ["Oakley", "Chris"];
+//     let reqUrl = req.url.slice(1);
+//     let content = `Hello, ${reqUrl}`;
     
-    if (names.includes(reqUrl)) {
-        content = `How wonderfully splendid it is to be in your presence again, ${reqUrl}. You look magnificent today!`
-    }
+//     if (names.includes(reqUrl)) {
+//         content = `How wonderfully splendid it is to be in your presence again, ${reqUrl}. You look magnificent today!`
+//     }
         
-    res.end(content);
-});
+//     res.end(content);
+// });
 
-server.listen(3000, () => {
-    console.log('Server is listening at port 3000');
-});
+// server.listen(3000, () => {
+//     console.log('Server is listening at port 3000');
+// });
 
 
 // Part 3
@@ -61,3 +61,29 @@ server.listen(3000, () => {
 //     "Milla": "Hello, "
 // }
 // Based on the value of req.url, send back the corresponding greeting from the object. If the name is not a key in the object, send back the standard Hello, <name>!
+
+const http = require('http');
+
+const server = http.createServer((req, res) => {
+    res.writeHead(200, {
+        'Content-Type': 'text-plain'
+    });
+
+    const greetings = {
+        "Eva": "How wonderfully splendid it is to be in your presence again!",
+        "Chris": "Oh hey...",
+        "Peter": "Hello, "
+        }
+    let reqUrl = req.url.slice(1);
+    let content = `Hello, ${reqUrl}`;
+    
+    if (Object.keys(greetings).includes(reqUrl)) {
+        content = greetings[reqUrl];
+    }
+        
+    res.end(content);
+});
+
+server.listen(3000, () => {
+    console.log('Server is listening at port 3000');
+});
