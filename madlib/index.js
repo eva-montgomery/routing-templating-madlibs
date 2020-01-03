@@ -27,7 +27,7 @@
 
 // If the value of req.url is /milla (and the array is still ["Oakley", "Chris"]), the page should show Hello, Milla!.
 
-names = ["Oakley", "Chris"]
+
 
 const http = require('http');
 
@@ -35,13 +35,15 @@ const server = http.createServer((req, res) => {
     res.writeHead(200, {
         'Content-Type': 'text-plain'
     });
-        if (req.url === '/oakley') {
-        let content = `<h1>How wonderfully splendid it is to be in your presence again, ${req.url.slice(1)}. You look magnificent today!</h1>`;
-    } else if (req.url === '/milla') {
-        let content = `<h1>Hello, Milla!</h1>`;
+
+    const names = ["Oakley", "Chris"];
+    let reqUrl = req.url.slice(1);
+    let content = `Hello, ${reqUrl}`;
+    
+    if (names.includes(reqUrl)) {
+        content = `How wonderfully splendid it is to be in your presence again, ${reqUrl}. You look magnificent today!`
     }
-
-
+        
     res.end(content);
 });
 
